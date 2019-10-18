@@ -40,9 +40,12 @@ script_folder_name="$(basename "${script_folder_path}")"
 
 # =============================================================================
 
-node_path=$(which node)
-npm_path=$(which npm)
-if [ -n "${node_path}" -o -n "${npm_path}" ]
+set +e
+node_path="$(which node)"
+npm_path="$(which npm)"
+set -e
+
+if [ -n "${node_path}" -o -n "${npm_path}" -o -x "/usr/local/bin/node" -o -x "/usr/local/bin/npm" -o -x "/usr/local/bin/npx" ]
 then
   echo "Uninstall node & npm before running this script."
   exit 1
@@ -54,18 +57,19 @@ then
   exit 1
 fi
 
-node_version=$0
+node_version=$1
 shift
 
 node_archive_name="node-v${node_version}-linux-x64.tar.xz"
-if [ ! -f "~/Downloads/${node_archive_name}" ]
+if [ ! -f "${HOME}/Downloads/${node_archive_name}" ]
 then
-  curl --fail -L https://nodejs.org/dist/v${node_version}/${node_archive_name} -o "~/Downloads/${node_archive_name}.download"
-  mv "~/Downloads/${node_archive_name}.download" "~/Downloads/${node_archive_name}"
+  rm -rf "${HOME}/Downloads/${node_archive_name}.download"
+  curl --fail -L https://nodejs.org/dist/v${node_version}/${node_archive_name} -o "${HOME}/Downloads/${node_archive_name}.download"
+  mv "${HOME}/Downloads/${node_archive_name}.download" "${HOME}/Downloads/${node_archive_name}"
 fi
 
 mkdir -p "/usr/local/lib/nodejs"
-tar -xJvf "~/Downloads/${node_archive_name}" -C "/usr/local/lib/nodejs"
+tar -xJvf "${HOME}/Downloads/${node_archive_name}" -C "/usr/local/lib/nodejs"
 
 ln -s -v "/usr/local/lib/nodejs/node-v${node_version}-linux-x64/bin/node" "/usr/local/bin/node"
 ln -s -v "/usr/local/lib/nodejs/node-v${node_version}-linux-x64/bin/npm" "/usr/local/bin/npm"
