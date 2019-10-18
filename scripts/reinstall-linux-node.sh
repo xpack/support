@@ -48,6 +48,7 @@ set -e
 if [ -n "${node_path}" -o -n "${npm_path}" -o -x "/usr/local/bin/node" -o -x "/usr/local/bin/npm" -o -x "/usr/local/bin/npx" ]
 then
   echo "Uninstall node & npm before running this script."
+  echo "Be sure you remove /usr/local/bin/node, /usr/local/bin/npm, /usr/local/bin/npx."
   exit 1
 fi
 
