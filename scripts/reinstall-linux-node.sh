@@ -73,12 +73,12 @@ then
   mv "${download_folder}/${node_archive_name}.download" "${download_folder}/${node_archive_name}"
 fi
 
-mkdir -p "/usr/local/lib/nodejs"
-tar -xJvf "${download_folder}/${node_archive_name}" -C "/usr/local/lib/nodejs"
+sudo mkdir -p "/usr/local/lib/nodejs"
+sudo tar -xJvf "${download_folder}/${node_archive_name}" -C "/usr/local/lib/nodejs"
 
-ln -s -v "/usr/local/lib/nodejs/node-v${node_version}-linux-x64/bin/node" "/usr/local/bin/node"
-ln -s -v "/usr/local/lib/nodejs/node-v${node_version}-linux-x64/bin/npm" "/usr/local/bin/npm"
-ln -s -v "/usr/local/lib/nodejs/node-v${node_version}-linux-x64/bin/npx" "/usr/local/bin/npx"
+sudo ln -s -v "/usr/local/lib/nodejs/node-v${node_version}-linux-x64/bin/node" "/usr/local/bin/node"
+sudo ln -s -v "/usr/local/lib/nodejs/node-v${node_version}-linux-x64/bin/npm" "/usr/local/bin/npm"
+sudo ln -s -v "/usr/local/lib/nodejs/node-v${node_version}-linux-x64/bin/npx" "/usr/local/bin/npx"
 
 echo
 echo "Done."

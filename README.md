@@ -7,14 +7,14 @@ A script to reinstall an official node from https://nodejs.org/en/download/.
 Usage:
 
 ```console
-$ sudo bash reinstall-linux-node.sh <version>
+$ bash reinstall-linux-node.sh <version>
 ```
 
 Example:
 
 ```console
 $ curl --fail -L https://github.com/xpack/support/raw/master/scripts/reinstall-linux-node.sh -o ~/Downloads/reinstall-linux-node.sh
-$ sudo bash ~/Downloads/reinstall-linux-node.sh 10.16.3
+$ bash ~/Downloads/reinstall-linux-node.sh 10.16.3
 ```
 
 Be sure you uninstall `node` and `npm` before running this script.
