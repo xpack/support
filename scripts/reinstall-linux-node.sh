@@ -62,15 +62,19 @@ node_version=$1
 shift
 
 node_archive_name="node-v${node_version}-linux-x64.tar.xz"
-if [ ! -f "${HOME}/Downloads/${node_archive_name}" ]
+
+# Do not use ${HOME}/Downloads since it runs with sudo and it may be /root.
+download_folder="/tmp"
+
+if [ ! -f "${download_folder}/${node_archive_name}" ]
 then
-  rm -rf "${HOME}/Downloads/${node_archive_name}.download"
-  curl --fail -L https://nodejs.org/dist/v${node_version}/${node_archive_name} -o "${HOME}/Downloads/${node_archive_name}.download"
-  mv "${HOME}/Downloads/${node_archive_name}.download" "${HOME}/Downloads/${node_archive_name}"
+  rm -rf "${download_folder}/${node_archive_name}.download"
+  curl --fail -L https://nodejs.org/dist/v${node_version}/${node_archive_name} -o "${download_folder}/${node_archive_name}.download"
+  mv "${download_folder}/${node_archive_name}.download" "${download_folder}/${node_archive_name}"
 fi
 
 mkdir -p "/usr/local/lib/nodejs"
-tar -xJvf "${HOME}/Downloads/${node_archive_name}" -C "/usr/local/lib/nodejs"
+tar -xJvf "${download_folder}/${node_archive_name}" -C "/usr/local/lib/nodejs"
 
 ln -s -v "/usr/local/lib/nodejs/node-v${node_version}-linux-x64/bin/node" "/usr/local/bin/node"
 ln -s -v "/usr/local/lib/nodejs/node-v${node_version}-linux-x64/bin/npm" "/usr/local/bin/npm"
